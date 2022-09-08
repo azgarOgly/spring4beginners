@@ -1,0 +1,13 @@
+<beans>
+    <bean id="applicationController" class="eu.bigbank.controller.ApplicationController">
+        <property name="applicationService">
+            <ref local="applicationService"/>
+        </property>
+    </bean>
+    <bean id="applicationService" class="eu.bigbank.service.ApplicationService">
+        <property name="applicationRepository">
+            <ref local="applicationRepository"/>
+        </property>
+    </bean>
+    <bean id="applicationRepository" class="eu.bigbank.repository.ApplicationRepository"/>
+</beans>

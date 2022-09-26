@@ -66,29 +66,22 @@ public class DiscoveryService {
     }
 
     private HostWithHello checkHello(Host host) {
-        HostWithHello hostWithHello =
-                (HostWithHello) new HostWithHello()
-                .setPort(8080)
-                .setIp(host.getIp())
-                .setName(host.getName());
-        log.info("***** " + host);
-        log.info("***** " + hostWithHello);
+        HostWithHello hostWithHello = new HostWithHello(host).setPort(8080);
         return checkHello(hostWithHello);
     }
     private HostWithHello checkHello(HostWithHello host) {
-        HostWithHello result = (HostWithHello) new HostWithHello()
-                .setPort(host.getPort())
-                .setIp(host.getIp())
-                .setName(host.getName());
         try {
-            result.setHello(restTemplate.getForObject(getUrl(host.getIp(), host.getPort(), "/"), String.class));
+            host.setHello(restTemplate.getForObject(getUrl(host, "/"), String.class));
         } catch (Exception e) {
             log.error("Failed to check hello on " + host, e);
-            result.setError(e.getMessage());
+            host.setError(e.getMessage());
         }
-        return result;
+        return host;
     }
 
+    private String getUrl(HostWithHello host, String path) {
+        return getUrl(host.getIp(), host.getPort(), path);
+    }
     private String getUrl(String address, int port, String path) {
         return getUrl(address + ":" + port, path);
     }

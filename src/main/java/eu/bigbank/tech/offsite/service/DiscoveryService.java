@@ -1,7 +1,7 @@
 package eu.bigbank.tech.offsite.service;
 
 import eu.bigbank.tech.offsite.model.Host;
-import eu.bigbank.tech.offsite.repository.DiscoveryRepository;
+import eu.bigbank.tech.offsite.repository.KnownHostsRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -14,12 +14,12 @@ import java.util.Collection;
 @Service
 public class DiscoveryService {
 
-    private final DiscoveryRepository repository;
+    private final KnownHostsRepository repository;
     private final RestTemplate restTemplate = new RestTemplate();
     private final String myName;
 
     public DiscoveryService(
-            DiscoveryRepository repository,
+            KnownHostsRepository repository,
             @Value("${my.name}") String myName) {
         this.repository = repository;
         this.myName = myName;

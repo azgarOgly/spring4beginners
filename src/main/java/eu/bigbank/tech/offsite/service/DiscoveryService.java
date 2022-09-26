@@ -68,7 +68,7 @@ public class DiscoveryService {
     private HostWithHello checkHello(Host host) {
         HostWithHello hostWithHello =
                 (HostWithHello) new HostWithHello()
-                .setPort(80)
+                .setPort(8080)
                 .setIp(host.getIp())
                 .setName(host.getName());
         log.info("***** " + host);
